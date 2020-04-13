@@ -1,0 +1,76 @@
+System Reputation Verification Basics: 
+
+- A dynamic list of system-generated sub-tokens, representing reputation/expertise in any domain. 
+- The forum of expertises. For each expertise, there is a linked list of posts, where each list has a sub-token assigned to it, based on its root post, called the expertise tag, or expertise. Each post can include opinions, evidence of work, evidence of expertise, policies, and contract templates. A post is a trivial smart contract on the Ethereum blockchain, typically a short text post. The forum is housed on a blockchain to allow eternal verification and review of the reputation created in each post.
+- The bench of experts. Experts are anonymous users who stake their respective sub-tokens to answer validation requests or proclaim their availability for off-platform work. 
+- The validation pool. Experts may stake their expertise-specific tokens in order to validate or invalidate posts through a betting pool. This is used to answer validation requests, set precedents, promote specialization and proficiency. The validation pool is the mechanism which creates and distributes reputation.
+
+Platform architectural specifics: 
+
+Necessity #1: Forum. Evidence of all work needs to be posted to the blockchain for eternal review. 
+Necessity #2: Validation pool. In a decentralized environment consisting of potentially anonymous actors, the only fair way to assign power is to allow all users to judge the value of contributions democratically. 
+Necessity #3: Reputation token minting. All new repute tokens are minted in proportion to fees, and staked 50/50 in a validation pool, for and against a post. 
+Necessity #4: Reputational salary. All fees should be shared with the entire group of token holders (the bench of experts) relative to their holdings
+Necessity #5: Precedent System: Review through references. Finally, each new post has the opportunity to reference older posts, changing the value of previous posts depending on how important users perceive the precedent for the system. 
+
+Core basics
+
+While the core architecture can be implemented on other types of infrastructure, Ethereum was
+chosen to host the first implementation, due to its decentralized, censorship-resistant, modular
+architecture and extensive developer adoption features.
+
+The core platform exposes five external functions:
+
+1) Get list of expertises.
+2) Get list of experts given an expertise.
+3) Announce expert availability stake for random selection.
+4) Add a validation request to the platform.
+5) Vote on a validation request by staking expertise specific tokens.
+The typical flow of events for a user interacting with the core is the following:
+1) Public user Alice has some work which needs to be done that requires a certain expertise.
+2) Alice searches the forum for solutions. An off-platform user interface which organizes the
+information of the forum suggests the appropriate expertises and smart contracting
+language for finding an expert in the system.
+3) Alice chooses a smart contract (SC), sends SC and the ETH fee to the platform.
+4) Accessing the platform, SC does the following:
+a) SC queries the platform to get the list of all experts and their posted availability
+stakes from the chosen expertise.
+b) SC randomly chooses an expert, Bob. The random selection follows a weighted
+distribution determined by the posted availability stakes of the experts in the
+expertise.
+c) SC takes control of Bob’s availability stake.
+d) SC informs Bob of his selection and the work Alice requires to be done.
+e) Bob does the work for Alice off platform.
+f) Bob sends his evidence-of-work post to SC.
+g) In Bob’s (pseudonymous) name, SC sends Bob’ evidence-of-work post and Alice’s
+ETH fee to the platform.
+5) The platform distributes Alice’s ETH fee to the domain experts, proportionately, based on
+the amount of sub-tokens they own for that expertise
+6) The platform mints new domain-specific sub-tokens, based on the amount of ETH sent and
+the exchange rate between ETH and the respective sub-token. (Within each expertise, the
+bench decides the exchange rate. See §9.1 Expert parameter maintenance.)
+7) Validation pool opens. Half of the new tokens are staked for upvote and assigned to Bob.
+(This is Bob’s payment for the work he’s done). The other half of the new tokens are staked
+for downvote and left unassigned. (Figure 3, above.)
+8) SC stakes Bob’s availability stakes as an upvote for Bob. (This incentivizes Bob to work
+well for Alice, or he will lose his availability stakes.)
+9) Validation pool is announced to all experts to vote on. The staking process will remain
+open for a limited amount of time, set as a parameter. (Within each expertise, the bench
+decides this expiration time. See §9.1 Expert parameter maintenance.)
+10) During this time, any other domain-specific sub-token holders will have the opportunity to
+stake their tokens as up- or downvotes, using symmetric key encryption3 to hide their vote
+from the other experts. (Figure 4, above.)
+11) When the validation pool ends, voting parties send their decryption keys to reveal up- and
+downvotes. The winning parties will be awarded their staked amounts plus the pro-rata
+share of the losing party’s stakes. If Bob’s work is validated, he will be paid in tokens in
+proportion to the ETH staked in his name, and his pro-rata share of the losing party’s token
+stakes.
+In summary, the core
+1) answers queries about the list of expertises, the list of experts within each expertise, and
+each expert’s availability stakes
+2) answers validation requests, taking as input an ETH fee and the address of an Ethereum
+post, then
+a) distributes the ETH as reputational salaries to the bench
+b) opens a new validation pool
+c) collects reputation stakes from experts on the pool
+d) distributes the losers’ stakes to the winners
